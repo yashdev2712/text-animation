@@ -7,8 +7,14 @@ function breakText() {
 
   var clutter = "";
 
-  textSplit.forEach((items) => {
-    clutter += `<span>${items}</span>`;
+  var halfValue = Math.floor(textSplit.length / 2);
+
+  textSplit.forEach((items, idx) => {
+    if (idx > halfValue) {
+      clutter += `<span class="b">${items}</span>`;
+    } else {
+      clutter += `<span class="a">${items}</span>`;
+    }
   });
 
   h1.innerHTML = clutter;
@@ -16,9 +22,18 @@ function breakText() {
 
 breakText();
 
-gsap.from("h1 span", {
+gsap.from(".a", {
   opacity: 0,
-  stagger: 0.1,
   y: 30,
   duration: 1,
+  ease: "bounce",
+  stagger: 0.1,
+});
+
+gsap.from(".b", {
+  opacity: 0,
+  y: 30,
+  duration: 1,
+  ease: "bounce",
+  stagger: -0.1,
 });
